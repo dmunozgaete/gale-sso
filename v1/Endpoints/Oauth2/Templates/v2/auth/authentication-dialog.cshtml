@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión Con Sodimac</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.red-indigo.min.css">
+    <link rel="stylesheet" href="assets/fonts/social-icons.css">
+    <link rel="stylesheet" href="assets/css/dialogs.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+</head>
+
+<body class="dialogs auth-dialogs authentication-page">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+        <header class="mdl-layout__header mdl-layout__header--seamed">
+            <div class="mdl-layout__header-row">
+                <div class="logo">
+                    <img src="assets/images/sso-logo.svg" />
+                </div>
+                <span class="mdl-layout-title">Iniciar sesión con Sodimac</span>
+            </div>
+        </header>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                @if (!String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.FRIENDLY_ERROR]))
+                {
+                    <div class="friendly-error">
+                        @(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.FRIENDLY_ERROR])
+                    </div>
+                }
+                <center>
+                    <div class="app-logo-container @(String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.FRIENDLY_ERROR]) ? "" : "has-friendly-error")">
+                        <img src="../../Accounts/@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.APP_TOKEN]).jpg" />
+                    </div>
+                    <div class="app-disclaimer">
+                        Inicia sesión en tu cuenta de Sodimac para conectar con <span class="app-name">@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.APP_NAME])</span>
+                    </div>
+                    <form class="credentials" action="validate" method="post">
+                        <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.CLIENT_ID)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.CLIENT_ID])">
+                        <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.REDIRECT_URI)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.REDIRECT_URI])">
+                        <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.RESPONSE_TYPE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.RESPONSE_TYPE])">
+                        <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.SCOPE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.SCOPE])">
+                        <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.PROMPT)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.PROMPT])">
+                        <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.STATE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.STATE])">
+                        <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT])">
+                        <div>
+                            <div>
+                                <input type="text" maxlength="48" placeholder="Correo electrónico" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.USERNAME)" id="" @(API.Endpoints.Oauth2.Resources.RFC6749Names.USERNAME) ">
+                            </div>
+                            <div>
+                                <input type="password" maxlength="44" placeholder="Contraseña de Sodimac" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.PASSWORD)" id="@(API.Endpoints.Oauth2.Resources.RFC6749Names.PASSWORD)">
+                            </div>
+                        </div>
+                        <button class="enter mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Entrar
+                        </button>
+                    </form>
+                    @if (!String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.AUTHENTICATORS_COUNTS]) && Int32.Parse(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.AUTHENTICATORS_COUNTS]) > 1)
+                    {
+                        <div class="external-authenticators">
+                            <div class="external-disclaimer">
+                                O también puedes usar:
+                            </div>
+                            <div class="authenticators">
+                                @if (!String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.FACEBOOK]))
+                                {
+                                    <button id="facebook" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                        <i class="social-icon">&#xe041;</i>
+                                    </button>
+                                    <div class="mdl-tooltip" data-mdl-for="facebook">
+                                        @(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.FACEBOOK])
+                                    </div>
+                                }
+
+                                @if (!String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.LINKEDIN]))
+                                {
+                                    <button id="linkedin" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                        <i class="social-icon">&#xe049;</i>
+                                    </button>
+                                    <div class="mdl-tooltip" data-mdl-for="linkedin">
+                                        @(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.LINKEDIN])
+                                    </div>
+                                }
+
+                                @if (!String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.GOOGLE]))
+                                {
+                                    <button id="google" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                        <i class="social-icon">&#xe067;</i>
+                                    </button>
+                                    <div class="mdl-tooltip" data-mdl-for="google">
+                                        @(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.GOOGLE])
+                                    </div>
+                                }
+
+                                @if (!String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.TWITTER]))
+                                {
+                                    <button id="twitter" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                                        <i class="social-icon">&#xe040;</i>
+                                    </button>
+                                    <div class="mdl-tooltip" data-mdl-for="twitter">
+                                        @(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.TWITTER])
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    }
+
+                    <div class="app-cancel-container @(!String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.AUTHENTICATORS_COUNTS]) && Int32.Parse(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.AUTHENTICATORS_COUNTS]) > 1 ? "has-authenticators" : "")">
+                        <form class="credentials" action="error" method="post">
+                            <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.RESPONSE_TYPE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.RESPONSE_TYPE])">
+                            <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.STATE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.STATE])">
+                            <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.REDIRECT_URI)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.REDIRECT_URI])">
+                            <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.ERROR)" value="user_cancel">
+
+                            <button class="mdl-button mdl-js-button">
+                                Cancelar
+                            </button>
+                        </form>
+                    </div>
+                </center>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

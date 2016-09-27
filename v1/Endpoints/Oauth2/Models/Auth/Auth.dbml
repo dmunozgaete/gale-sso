@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SD_SingleSignOn" Class="AuthDialogDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=SD_SingleSignOn;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DbmlConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="" Member="ValidationResults">
+    <Type Name="ValidationResult">
+      <Column Name="Autenticado" Member="authenticated" Type="System.Boolean" CanBeNull="false" />
+      <Column Name="Autorizado" Member="authorized" Type="System.Boolean" CanBeNull="false" />
+      <Column Name="USUA_Token" Member="user" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="RegenerationResults">
+    <Type Name="RegenerationResult">
+      <Column Name="Autorizado" Member="authorized" Type="System.Boolean" CanBeNull="false" />
+      <Column Name="USUA_Token" Member="user_token" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_NombreCompleto" Member="user_name" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_Avatar" Member="user_avatar" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VT_Usuarios" Member="Users">
+    <Type Name="User">
+      <Column Name="USUA_Token" Member="token" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="USUA_FechaCreacion" Member="createdAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_Identificador" Member="identifier" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_Avatar" Member="avatar" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_Email" Member="email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_NombreCompleto" Member="fullname" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_UltimaConexion" Member="lastConnection" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_Activo" Member="active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="roles" Type="List&lt;Role&gt;" CanBeNull="false" />
+      <Column Name="TIEN_Identificador" Member="type_identifier" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.V_Perfiles" Member="Roles">
+    <Type Name="Role">
+      <Column Name="PERF_Token" Member="token" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PERF_Identificador" Member="identifier" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VT_AUT_Aplicaciones" Member="Applications">
+    <Type Name="Application">
+      <Column Name="APPL_Token" Member="token" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="APPL_Avatar" Member="avatar" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="false" />
+      <Column Name="APPL_Nombre" Member="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="APPL_ExpiracionToken" Member="expiration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="APPL_OrigenesHabilitados" Member="origins" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="APPL_MD5" Member="md5" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_AUT_Entidad_Aplicacion" Member="UserApplications">
+    <Type Name="UserApplication">
+      <Column Name="ENAP_Hash" Member="hash" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="ENAP_FechaCreacion" Member="createdAT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_AUT_TipoAutenticador" Member="AuthenticatorAvailables">
+    <Type Name="AuthenticatorAvailable">
+      <Column Name="TIAU_Identificador" Member="name" Type="System.String" DbType="Char(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TIAU_Nombre" Member="description" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_AUT_Reclamacion" Member="ScopesRequesteds">
+    <Type Name="ScopesRequested">
+      <Column Name="RECL_Identificador" Member="identifier" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="T_Scopes">
+    <Type Name="T_Scope">
+      <Column Member="scope" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

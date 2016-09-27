@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error | Sodimac</title>
+    <!-- Material Design Lite (From Google) -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.red-indigo.min.css">
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/dialogs.css">
+    <link rel="stylesheet" href="assets/css/error.css">
+</head>
+
+<body class="dialogs error-dialogs developer-page">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+        <header class="mdl-layout__header mdl-layout__header--seamed">
+            <div class="mdl-layout__header-row">
+                <div class="logo">
+                    <img src="assets/images/sso-logo.svg" />
+                </div>
+                <!-- Title -->
+                <span class="mdl-layout-title">Error</span>
+            </div>
+        </header>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <center>
+                    <div class="app-error">
+                        <span class="message">
+                            @(Model.Code):
+                            <br />
+                            @(Model.Message)
+                        </span>
+                    </div>
+                    <div class="app-cancel-container">
+                        <button type="button" onclick="history.back();" class="mdl-button mdl-js-button">
+                            Volver
+                        </button>
+                    </div>
+                </center>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

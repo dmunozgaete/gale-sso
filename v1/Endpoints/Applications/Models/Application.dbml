@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SD_WorkerManager" Class="ApplicationDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=SD_SingleSignOn;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DbmlConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="" Member="NewAplications">
+    <Type Name="NewAplication">
+      <Column Name="name" Type="System.String" CanBeNull="false" />
+      <Column Name="description" Type="System.String" CanBeNull="false" />
+      <Column Name="avatar" Type="System.Guid" CanBeNull="false" />
+      <Column Name="origins" Type="System.String" CanBeNull="false" />
+      <Column Name="expirationToken" Type="System.Int32" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SD_SingleSignOn" Class="AccountDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=SD_SingleSignOn;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DbmlConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.VT_AUT_Usuarios" Member="Accounts">
+    <Type Name="Account">
+      <Column Name="USUA_Token" Member="token" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_FechaCreacion" Member="createdAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_Avatar" Member="avatar" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="USUA_Email" Member="email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="USUA_NombreCompleto" Member="fullName" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_UltimaConexion" Member="lastConnection" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TIEN_Identificador" Member="type_identifier" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="TIEN_Token" Member="type_token" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

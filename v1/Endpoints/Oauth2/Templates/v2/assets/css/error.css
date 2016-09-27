@@ -1,0 +1,13 @@
+body.error-dialogs.developer-page div.page-content > center {
+  padding-top: 2em; }
+  body.error-dialogs.developer-page div.page-content > center > div.app-error {
+    width: 90%;
+    padding-left: 5%;
+    background: #ffebe8;
+    color: #6d220d;
+    border-radius: 4px;
+    padding: 24px 0px;
+    max-height: 20em;
+    overflow: scroll; }
+
+/*# sourceMappingURL=error.css.map */

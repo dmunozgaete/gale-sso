@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <head>
+        <meta charset="utf-8">
+        <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <title></title>
+</head>
+<body>
+    <br />
+    <br />
+    <center>
+        <span style="opacity:0.6; font-family:arial">
+            Dummy Page
+            <br />
+            <br />
+            <span style="font-size:0.7em">
+                (Use this page for desktop authentication Flow)
+            </span>
+        </span>
+    </center>
+    @if (!String.IsNullOrEmpty(Model.origin))
+    {
+        <script type="text/javascript">
+            var qs = window.location.href;
+            opener.postMessage(qs, "@(Model.origin)");
+            this.close();
+        </script>
+    }
+</body>
+</html>
