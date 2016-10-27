@@ -27,6 +27,7 @@ namespace API.Endpoints.Oauth2
         /// <param name="client_id">Identifies the client that is making the request. The value passed in this parameter must exactly match the value shown in the registration form</param>
         /// <param name="redirect_uri">Determines where the response is sent. The value of this parameter must exactly match one of the values listed for this project in the application details</param>
         /// <param name="prompt">Space-delimited, case-sensitive list of prompts to present the user. If you don't specify this parameter, the user will be prompted only the first time your app requests access. (none,consent)</param>
+        /// <param name="country">User Localizaction Country</param>
         /// <param name="state">Any string</param>
         /// <param name="scope">Space-delimited set of permissions that the application requests.</param>
         /// <returns></returns>
@@ -38,7 +39,8 @@ namespace API.Endpoints.Oauth2
             [FromUri]String client_id,
             [FromUri]String redirect_uri,
             [FromUri]String response_type = "token",
-            [FromUri]String prompt = "none",
+            [FromUri]String prompt = "consent",
+            [FromUri]String country = "CL",
             [FromUri]String state = null,
             [FromUri]String scope = null)
         {
@@ -49,6 +51,7 @@ namespace API.Endpoints.Oauth2
             parameters.Add(RFC6749Names.CLIENT_ID, client_id);
             parameters.Add(RFC6749Names.REDIRECT_URI, redirect_uri);
             parameters.Add(RFC6749Names.RESPONSE_TYPE, response_type);
+            parameters.Add(RFC6749Names.COUNTRY, country);
             parameters.Add(RFC6749Names.PROMPT, prompt);
             parameters.Add(RFC6749Names.SCOPE, scope);
             parameters.Add(RFC6749Names.STATE, state);
@@ -59,6 +62,7 @@ namespace API.Endpoints.Oauth2
             //--[ Restrictions according to RFC https://tools.ietf.org/html/rfc6749#section-4.4
             checkParameter(parameters, RFC6749Names.CLIENT_ID);
             checkParameter(parameters, RFC6749Names.REDIRECT_URI);
+            checkParameter(parameters, RFC6749Names.COUNTRY);
             checkParameter(parameters, RFC6749Names.RESPONSE_TYPE);
             checkParameter(parameters, RFC6749Names.PROMPT);
             checkParameter(parameters, RFC6749Names.SCOPE);
@@ -86,6 +90,7 @@ namespace API.Endpoints.Oauth2
             Gale.Exception.RestException.Guard(() => parameters == null, "PARAMETERS_REQUIRED", Resources.OAuth2.ResourceManager);
             checkParameter(parameters, RFC6749Names.CLIENT_ID);
             checkParameter(parameters, RFC6749Names.REDIRECT_URI);
+            checkParameter(parameters, RFC6749Names.COUNTRY);
             checkParameter(parameters, RFC6749Names.RESPONSE_TYPE);
             checkParameter(parameters, RFC6749Names.PROMPT);
             checkParameter(parameters, RFC6749Names.USERNAME);
@@ -95,6 +100,19 @@ namespace API.Endpoints.Oauth2
 
             return new Services.Auth.ValidateAuthCredentials(this.Request, version, parameters);
 
+        }
+
+        /// <summary>
+        /// Logout Current Account
+        /// </summary>
+        /// <param name="version">flow version</param>
+        /// <returns></returns>
+        [HttpGet]
+        [HierarchicalRoute("v{version:int}/logout")]
+        [API.Endpoints.Oauth2.Decorators.DialogFormatWhenException]
+        public IHttpActionResult validate([FromUri]int version, [FromUri]String next)
+        {
+            return new Services.Auth.Logout(this.Request, version, next);
         }
         #endregion
 
@@ -205,19 +223,44 @@ namespace API.Endpoints.Oauth2
 
         #region REGISTRATION FLOW
 
-        #region REGISTRATION FLOW --> CUSTOM REGISTRATION DIALOG'S
+        #region REGISTRATION FLOW --> RENDER'S
+
+        /// <summary>
+        /// Register User
+        /// </summary>
+        /// <param name="version">Version 1.0</param>
+        /// <param name="next">Url to continue base64()</param>
+        /// <param name="country">Country</param>
+        /// <returns></returns>
         [HttpGet]
-        [HierarchicalRoute("v{version:int}/register/custom")]
-        public IHttpActionResult RegisterUserCustomForm(string version)
+        [HierarchicalRoute("v{version:int}/register")]
+        [API.Endpoints.Oauth2.Decorators.DialogFormatWhenException]
+        public IHttpActionResult RegisterUser([FromUri]int version, [FromUri]string next, [FromUri]string country)
         {
-            throw new NotImplementedException();
+            var parameters = new System.Collections.Specialized.NameValueCollection();
+            parameters.Add(RFC6749Names.NEXT, next);
+            parameters.Add(RFC6749Names.COUNTRY, country);    //Default
+
+            return new Services.Registration.GetUserRegisterDialog(this.Request, version, parameters);
         }
 
+        /// <summary>
+        /// Validate and save the user into the SSO
+        /// </summary>
+        /// <param name="version">Version to acquire</param>
+        /// <param name="next">base64(uri)</param>
+        /// <param name="country">User Localization Country</param>
+        /// <returns></returns>
         [HttpPost]
-        [HierarchicalRoute("v{version:int}/register/custom")]
-        public IHttpActionResult RegisterUserCustomForm(int version, Models.Registration.NewAccount account)
+        [HierarchicalRoute("v{version:int}/register")]
+        [API.Endpoints.Oauth2.Decorators.DialogFormatWhenException]
+        public IHttpActionResult SaveAndRegisterUser(int version, [FromUri]string next, [FromUri]string country)
         {
-            return new Services.Registration.RegisterCustomUser(account);
+            var parameters = this.Request.Content.ReadAsFormDataAsync().Result;
+            parameters.Add(RFC6749Names.NEXT, next);
+            parameters.Add(RFC6749Names.COUNTRY, country); 
+
+            return new Services.Registration.RegisterUser(this.Request, version, parameters);
         }
         #endregion
 

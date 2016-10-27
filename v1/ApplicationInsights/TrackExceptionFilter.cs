@@ -18,18 +18,15 @@ namespace API.ApplicationInsights
         /// <param name="context"></param>
         public override void OnException(HttpActionExecutedContext context)
         {
-            var configurationKey = "ApplicationInsights:IntrumentationKey";
-            if (System.Configuration.ConfigurationManager.AppSettings.AllKeys.Contains(configurationKey))
-            {
-                var trackID = System.Configuration.ConfigurationManager.AppSettings[configurationKey];
-                Microsoft.ApplicationInsights.TelemetryClient client = new Microsoft.ApplicationInsights.TelemetryClient();
+            var instrumentationKey = Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration.Active.InstrumentationKey;
+            Microsoft.ApplicationInsights.TelemetryClient client = new Microsoft.ApplicationInsights.TelemetryClient();
 
-                Dictionary<String, String> extraParameters = new Dictionary<String, String>();
-                extraParameters.Add("Request", context.Request.RequestUri.ToString());
+            Dictionary<String, String> extraParameters = new Dictionary<String, String>();
+            extraParameters.Add("Request", context.Request.RequestUri.ToString());
 
-                client.Context.InstrumentationKey = trackID;
-                client.TrackException(context.Exception, extraParameters);
-            }
+            client.Context.InstrumentationKey = instrumentationKey;
+            client.TrackException(context.Exception, extraParameters);
+
         }
     }
 }

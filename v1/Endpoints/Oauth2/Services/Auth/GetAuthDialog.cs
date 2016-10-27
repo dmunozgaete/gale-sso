@@ -75,6 +75,10 @@ namespace API.Endpoints.Oauth2.Services.Auth
         {
             var html = "";
 
+            //Add the next url , to post when a successfully auth is process or another process 
+            _parameters.Add(RFC6749Names.NEXT, Gale.Serialization.ToBase64(_request.RequestUri.ToString()));
+
+
             //------------------------------------------------------------------------------------------------------
             // DB Execution
             using (Gale.Db.DataService svc = new Gale.Db.DataService("PA_OAUT_OBT_Aplicacion"))
@@ -85,6 +89,12 @@ namespace API.Endpoints.Oauth2.Services.Auth
                 var application = repo.GetModel<Models.Auth.Application>().FirstOrDefault();
                 var authorized_scopes = repo.GetModel<Models.Auth.ScopesRequested>(1);
                 var authenticators = repo.GetModel<Models.Auth.AuthenticatorAvailable>(2);
+
+                //------------------------------------------------------------------------------------------------------------------------
+                //GUARD EXCEPTION
+                Gale.Exception.RestException.Guard(() => application == null, "APPLICATION_INVALID", Resources.OAuth2.ResourceManager);
+                //------------------------------------------------------------------------------------------------------------------------
+
 
                 //ADD EACH AUTHENTICATOR AVAILABLE IN THE CONFIGURATION ("prefix auth_")
                 var authenticators_count = authenticators.Count;
@@ -127,15 +137,9 @@ namespace API.Endpoints.Oauth2.Services.Auth
                         throw new Gale.Exception.RestException("SCOPE_INVALID", Resources.OAuth2.SCOPE_REQUESTED_IS_NOT_VALID);
                     }
                 }
+
                 scope_disclaimer.Append(".");
                 _parameters.Add(RFC6749Names.SCOPE_DISCLAIMER, scope_disclaimer.ToString());
-
-
-
-                //------------------------------------------------------------------------------------------------------------------------
-                //GUARD EXCEPTION
-                Gale.Exception.RestException.Guard(() => application == null, "APPLICATION_INVALID", Resources.OAuth2.ResourceManager);
-                //------------------------------------------------------------------------------------------------------------------------
 
                 //Add to the parameters
                 _parameters.Add(RFC6749Names.APP_TOKEN, application.token.ToString());
@@ -148,8 +152,9 @@ namespace API.Endpoints.Oauth2.Services.Auth
 
             //------------------------------------------------------------------------------------------------------
             //CHECK COOKIE IF THE USER ALREADY IS LOGGED
+            //IF PROMPT == "LOGIN", DONT BOTHER IN REGENERATE LOGIN
             var user_cookie = GetCookie(RFC6749Names.COOKIE_CURRENT_USER);
-            if (user_cookie != null && user_cookie.isGuid())
+            if (user_cookie != null && user_cookie.isGuid() && _prompt.ToLower() != "login")
             {
                 //------------------------------------------------------------------------------------------------------
                 // Try to Get the Information from the last logged user
@@ -220,9 +225,6 @@ namespace API.Endpoints.Oauth2.Services.Auth
             //After all... the user is not Identified??
             if (!isIdentified)
             {
-                //Add the next url , to post when a successfully auth is process
-                _parameters.Add(RFC6749Names.NEXT, Gale.Serialization.ToBase64(_request.RequestUri.ToString()));
-
                 //Assume Unidentified User, show the authentication dialog
                 html = API.Endpoints.Oauth2.Templates.EmbeddedResolver.GetStringContent(
                     _version,

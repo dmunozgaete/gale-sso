@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SD_SingleSignOn" Class="DeliveryDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=SD_SingleSignOn;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DbmlConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="" Member="NewAddresses">
+    <Type Name="NewAddress">
+      <Column Name="DIRE_Direccion" Member="address" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="DIRE_Numero" Member="number" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DIRE_NumeroDepto" Member="houseOrDepto" Storage="_department" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="TIDI_Nombre" Member="type" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="phones" Type="List&lt;NewPhone&gt;" CanBeNull="false" />
+      <Column Name="locations" Type="List&lt;NewLocation&gt;" CanBeNull="false" />
+      <Column Member="country" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="NewPhones">
+    <Type Name="NewPhone">
+      <Column Name="TELE_CodigoPais" Member="countryCode" Type="System.String" CanBeNull="false" />
+      <Column Name="TELE_CodigoArea" Member="areaCode" Storage="_area" Type="System.Int32" CanBeNull="false" />
+      <Column Name="TELE_Numero" Member="number" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VT_DESP_Direcciones" Member="VW_Addresses">
+    <Type Name="VW_Address">
+      <Column Name="DIRE_Token" Member="token" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DIRE_Direccion" Member="address" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="DIRE_Numero" Member="number" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DIRE_NumeroDeptoOCasa" Member="houseOrDepto" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DIRE_FechaActualizacion" Member="updatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DIRE_Pais" Member="country" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="TIDI_Identificador" Member="type_identifier" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TIDI_Nombre" Member="type_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="phones" Type="List&lt;AddressPhone&gt;" CanBeNull="false" />
+      <Column Name="locations" Type="List&lt;AddressLocation&gt;" CanBeNull="false" />
+      <Column Name="fullLocation" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_DESP_Telefono" Member="AddressPhones">
+    <Type Name="AddressPhone">
+      <Column Name="TELE_CodigoPais" Member="countryCode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TELE_CodigoArea" Member="areaCode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TELE_Numero" Member="number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TELE_FechaActualizacion" Member="updatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VT_DESP_Direcciones" Member="VT_DESP_Direccions">
+    <Type Name="VT_DESP_Direccion">
+      <Column Name="DIRE_Codigo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DIRE_Token" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="USUA_Codigo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DIRE_Direccion" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="DIRE_Numero" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DIRE_NumeroDeptoOCasa" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DIRE_FechaActualizacion" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DIRE_Pais" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="TIDI_Identificador" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TIDI_Nombre" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_DESP_Telefono" Member="TB_DESP_Telefonos">
+    <Type Name="TB_DESP_Telefono">
+      <Column Name="TELE_Codigo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TELE_CodigoPais" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TELE_CodigoArea" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TELE_Numero" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TELE_FechaActualizacion" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DIRE_Codigo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DIRE_Token" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_DESP_DireccionUbicacion" Member="TB_DESP_DireccionUbicacions">
+    <Type Name="TB_DESP_DireccionUbicacion">
+      <Column Name="DIRE_Codigo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UBIC_Codigo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UBIC_TIUB_Codigo" Type="System.Int32" CanBeNull="false" />
+      <Column Name="UBIC_Nombre" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_DESP_DireccionUbicacion" Member="AddressLocations">
+    <Type Name="AddressLocation">
+      <Column Name="UBIC_Codigo" Member="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UBIC_TIUB_Codigo" Member="type" Type="System.Int32" CanBeNull="false" />
+      <Column Name="UBIC_Nombre" Member="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="NewLocations">
+    <Type Name="NewLocation">
+      <Column Name="UBIC_Codigo" Member="id" Type="System.Int32" CanBeNull="false" />
+      <Column Name="UBIC_Nombre" Member="name" Type="System.String" CanBeNull="false" />
+      <Column Name="TIUB_Codigo" Member="type" Type="System.Int32" CanBeNull="false" />
+      <Column Name="UBIC_Codigo_Padre" Member="parent" Type="System.Int32" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

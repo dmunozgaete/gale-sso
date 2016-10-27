@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión Con Sodimac</title>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.red-indigo.min.css">
+    <link rel="stylesheet" href="assets/fonts/social-icons.css">
+    <link rel="stylesheet" href="assets/css/dialogs.css">
+    <link rel="stylesheet" href="assets/css/registration.css">
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+</head>
+
+<body class="dialogs registration-dialogs create-account">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+        <header class="mdl-layout__header mdl-layout__header--seamed">
+            <div class="mdl-layout__header-row">
+                <div class="logo">
+                    <img src="assets/images/sso-logo.svg" />
+                </div>
+                <span class="mdl-layout-title">Registrate en Sodimac</span>
+            </div>
+        </header>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                @if (!String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.FRIENDLY_ERROR]))
+                {
+                    <div class="friendly-error">
+                        @(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.FRIENDLY_ERROR])
+                    </div>
+                }
+                <center>
+                    <div class="app-disclaimer">
+                        Completa los datos a continuación para crear tu cuenta
+                        <span class="app-name">Sodimac</span>:
+                        <br />
+                        <span class="required-label">Todos los campos son obligatorios</span>
+                    </div>
+                    <form class="credentials" action="register?country=@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.COUNTRY])&next=@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT])" method="post">
+                        <div class="input-container">
+                            @if (Model[API.Endpoints.Oauth2.Resources.RFC6749Names.COUNTRY] == "CL")
+                            {
+                                <label for="identifier">RUT<span class="required">*</span>:</label>
+                                <div class="credentials-box">
+                                    <div>
+                                        <input type="text" maxlength="12" name="@(API.Endpoints.Oauth2.Resources.NewAccount.NATIONALID)" value="@(Model[API.Endpoints.Oauth2.Resources.NewAccount.NATIONALID])" placeholder="ej: 163875586">
+                                    </div>
+                                </div>
+                            }
+                            else if (Model[API.Endpoints.Oauth2.Resources.RFC6749Names.COUNTRY] == "PE")
+                            {
+                                <label for="identifier">RUT<span class="required">*</span>:</label>
+                                <div class="credentials-box">
+                                    <div>
+                                        <input type="text" maxlength="12" name="@(API.Endpoints.Oauth2.Resources.NewAccount.NATIONALID)" value="@(Model[API.Endpoints.Oauth2.Resources.NewAccount.NATIONALID])"  placeholder="ej: 163875586">
+                                    </div>
+                                </div>
+                            }
+                            else if (Model[API.Endpoints.Oauth2.Resources.RFC6749Names.COUNTRY] == "AR")
+                            {
+                                <label for="identifier">DNI<span class="required">*</span>:</label>
+                                <div class="credentials-box">
+                                    <div>
+                                        <input type="text" maxlength="12" name="@(API.Endpoints.Oauth2.Resources.NewAccount.NATIONALID)" value="@(Model[API.Endpoints.Oauth2.Resources.NewAccount.NATIONALID])"  placeholder="ej: 163875586">
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="input-container">
+                            <label for="names">Nombre Completo<span class="required">*</span>:</label>
+                            <div class="credentials-box">
+                                <div>
+                                    <input type="text" maxlength="48" name="@(API.Endpoints.Oauth2.Resources.NewAccount.NAMES)" value="@(Model[API.Endpoints.Oauth2.Resources.NewAccount.NAMES])"  placeholder="ej: David Gaete">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-container">
+                            <label for="email">Correo electrónico<span class="required">*</span>:</label>
+                            <div class="credentials-box">
+                                <div>
+                                    <input type="text" maxlength="90" name="@(API.Endpoints.Oauth2.Resources.NewAccount.EMAIL)" value="@(Model[API.Endpoints.Oauth2.Resources.NewAccount.EMAIL])"  placeholder="ej: david.gaete@gmail.com">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-container">
+                            <label for="identifier">Contraseña<span class="required">*</span>:</label>
+                            <div class="credentials-box">
+                                <div>
+                                    <input type="password" maxlength="12" name="@(API.Endpoints.Oauth2.Resources.NewAccount.PASSWORD)" placeholder="Mínimo 6 caracteres">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="enter mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Registrarme
+                        </button>
+                    </form>
+                    <div class="app-cancel-container">
+                        <a href="@(Gale.Serialization.FromBase64(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT]))" class="mdl-button mdl-js-button">
+                            Ya tengo cuenta
+                        </a>
+                        <br />
+                        <br />
+                    </div>
+                </center>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

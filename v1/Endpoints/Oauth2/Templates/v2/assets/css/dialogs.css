@@ -1,11 +1,21 @@
 ﻿body.dialogs {
   background-color: #f6f7f9; }
   body.dialogs header.mdl-layout__header > div.mdl-layout__header-row {
-    padding: 0 16px 0 60px; }
+    padding: 0px 52px 0px 0px; }
     body.dialogs header.mdl-layout__header > div.mdl-layout__header-row > div.logo {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      align-items: center;
       width: 32px;
-      position: absolute;
-      left: 16px; }
+      height: 100%;
+      padding: 0px 10px; }
       body.dialogs header.mdl-layout__header > div.mdl-layout__header-row > div.logo > img {
         width: 100%;
         height: auto; }
@@ -22,6 +32,7 @@
       bottom: 0.5em;
       left: 0px;
       right: 0px; }
+      body.dialogs div.page-content > center > div.app-cancel-container a,
       body.dialogs div.page-content > center > div.app-cancel-container button {
         height: 44px;
         color: #858585;

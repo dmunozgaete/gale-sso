@@ -17,6 +17,7 @@ namespace API.Endpoints.Oauth2.Resources
         public const String SCOPE = "scope";
         public const String STATE = "state";
         public const String CSRF = "csrf";
+        public const String COUNTRY = "country";
 
         //NOT IN THE RFC, BUT FOR SUPPORT
         public const String USERNAME = "username";
@@ -37,7 +38,7 @@ namespace API.Endpoints.Oauth2.Resources
         public const String VALIDATE_ACTION = "validate";
 
         public const String SCOPE_DISCLAIMER = "scopes_disclaimer";
-        
+
     }
 
 }

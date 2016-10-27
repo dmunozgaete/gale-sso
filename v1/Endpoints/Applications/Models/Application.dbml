@@ -7,6 +7,12 @@
       <Column Name="avatar" Type="System.Guid" CanBeNull="false" />
       <Column Name="origins" Type="System.String" CanBeNull="false" />
       <Column Name="expirationToken" Type="System.Int32" CanBeNull="false" />
+      <Column Member="scopes" Type="List&lt;String&gt;" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_AUT_Reclamacion" Member="NewApplicationScopes">
+    <Type Name="NewApplicationScope">
+      <Column Name="RECL_Identificador" Member="identifier" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

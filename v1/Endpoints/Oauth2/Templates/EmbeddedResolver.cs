@@ -11,6 +11,19 @@ namespace API.Endpoints.Oauth2.Templates
     /// </summary>
     public class EmbeddedResolver
     {
+        public static SortedDictionary<String, String> _cached;
+        public static SortedDictionary<String, String> cachedItems
+        {
+            get
+            {
+                if (_cached == null)
+                {
+                    _cached = new SortedDictionary<string, string>();
+                }
+                return _cached;
+            }
+        }
+
         // <summary>
         /// Get a Static File and Serve
         /// </summary>
@@ -30,14 +43,25 @@ namespace API.Endpoints.Oauth2.Templates
         public static String GetStringContent(int version, String route, dynamic model)
         {
             //----------------------------------
-            System.IO.Stream stream = GetEmbeddedStream(version, route);
-
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
+            if (!cachedItems.ContainsKey(route))
             {
-                var view = Template.Compile(reader.ReadToEnd());
-                stream.Dispose();   //Manual Disposing
+                System.IO.Stream stream = GetEmbeddedStream(version, route);
+                using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
+                {
+                    cachedItems.Add(route, reader.ReadToEnd());
+                    stream.Dispose();   //Manual Disposing
+                }
+            }
+
+            //If model , compile, if not, for fast retrieval , return the content directly
+            var cachedContent = cachedItems[route];
+            if (model != null)
+            {
+                var view = Template.Compile(cachedContent);
                 return view.Render(model);
             }
+
+            return cachedContent;
             //----------------------------------
         }
 

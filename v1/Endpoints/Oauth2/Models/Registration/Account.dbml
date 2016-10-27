@@ -6,6 +6,7 @@
       <Column Name="USUA_NombreCompleto" Member="fullname" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="APER_Contrasena" Member="password" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
       <Column Name="avatar" Type="System.Guid" CanBeNull="true" />
+      <Column Member="nationalId" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

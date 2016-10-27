@@ -6,7 +6,6 @@
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión Con Sodimac</title>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.red-indigo.min.css">
     <link rel="stylesheet" href="assets/fonts/social-icons.css">
@@ -46,21 +45,29 @@
                         <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.RESPONSE_TYPE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.RESPONSE_TYPE])">
                         <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.SCOPE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.SCOPE])">
                         <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.PROMPT)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.PROMPT])">
+                        <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.COUNTRY)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.COUNTRY])">
                         <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.STATE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.STATE])">
                         <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT])">
-                        <div>
+                        <div class="credentials-box">
                             <div>
-                                <input type="text" maxlength="48" placeholder="Correo electrónico" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.USERNAME)" id="" @(API.Endpoints.Oauth2.Resources.RFC6749Names.USERNAME) ">
+                                <input type="text" maxlength="48" placeholder="Correo electrónico" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.USERNAME)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.USERNAME])">
                             </div>
                             <div>
-                                <input type="password" maxlength="44" placeholder="Contraseña de Sodimac" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.PASSWORD)" id="@(API.Endpoints.Oauth2.Resources.RFC6749Names.PASSWORD)">
+                                <input type="password" maxlength="44" placeholder="Contraseña de Sodimac" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.PASSWORD)">
                             </div>
                         </div>
                         <button class="enter mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                             Entrar
                         </button>
                     </form>
-                    @if (!String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.AUTHENTICATORS_COUNTS]) && Int32.Parse(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.AUTHENTICATORS_COUNTS]) > 1)
+                    <div class="sign-up">
+                        <form action="register" method="post">
+                            <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT])">
+                            <span>¿No tienes cuenta aún?,</span>
+                            <a href="register?country=@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.COUNTRY])&next=@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT])">Regístrate aquí</a>
+                        </form>
+                    </div>
+                    @if (!String.IsNullOrEmpty(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.AUTHENTICATORS_COUNTS]) && Int32.Parse(Model[API.Endpoints.Oauth2.Resources.AUTHENTICATORS.AUTHENTICATORS_COUNTS]) >= 1)
                     {
                         <div class="external-authenticators">
                             <div class="external-disclaimer">

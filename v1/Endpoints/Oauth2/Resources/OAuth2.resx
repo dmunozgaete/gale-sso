@@ -173,4 +173,36 @@
     <value>The username is required to authenticate</value>
     <comment>auth</comment>
   </data>
+  <data name="COUNTRY_EMPTY" xml:space="preserve">
+    <value>the parameter country is required</value>
+    <comment>auth</comment>
+  </data>
+  <data name="EMAIL_INVALID" xml:space="preserve">
+    <value>El email es incorrecto.</value>
+    <comment>registration</comment>
+  </data>
+  <data name="NAMES_INVALID" xml:space="preserve">
+    <value>El nombre es incorrecto.</value>
+    <comment>registration</comment>
+  </data>
+  <data name="NATIONALID_INVALID" xml:space="preserve">
+    <value>El identificador nacional es incorrecto.</value>
+    <comment>registration</comment>
+  </data>
+  <data name="PASSWORD_INVALID" xml:space="preserve">
+    <value>La contraseña no es valida.</value>
+    <comment>registration</comment>
+  </data>
+  <data name="PASSWORD_INVALID_LENGTH" xml:space="preserve">
+    <value>El largo mínimo de la contraseña son 6 caracteres.</value>
+    <comment>registration</comment>
+  </data>
+  <data name="EMAIL_ALREADY_IN_USE" xml:space="preserve">
+    <value>El correo ya se encuentra asociado a una cuenta</value>
+    <comment>registration</comment>
+  </data>
+  <data name="billing" xml:space="preserve">
+    <value>tu información de facturación</value>
+    <comment>scope</comment>
+  </data>
 </root>

@@ -26,7 +26,9 @@
       <Column Name="USUA_UltimaConexion" Member="lastConnection" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="USUA_Activo" Member="active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="roles" Type="List&lt;Role&gt;" CanBeNull="false" />
+      <Column Name="USUA_IdentificadorNacional" Member="nationalId" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="TIEN_Identificador" Member="type_identifier" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="USUA_Pais" Member="country" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.V_Perfiles" Member="Roles">
@@ -64,7 +66,7 @@
   </Table>
   <Table Name="" Member="T_Scopes">
     <Type Name="T_Scope">
-      <Column Member="scope" Type="System.String" CanBeNull="false" />
+      <Column Name="scope" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

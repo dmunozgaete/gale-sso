@@ -6,7 +6,6 @@
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión Con Sodimac</title>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.red-indigo.min.css">
     <link rel="stylesheet" href="assets/css/dialogs.css">
@@ -43,14 +42,22 @@
                             <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.RESPONSE_TYPE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.RESPONSE_TYPE])">
                             <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.SCOPE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.SCOPE])">
                             <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.PROMPT)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.PROMPT])">
+                            <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.COUNTRY)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.COUNTRY])">
                             <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.STATE)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.STATE])">
                             <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.APP_TOKEN)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.APP_TOKEN])">
                             <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.USER_TOKEN)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.USER_TOKEN])">
+                            <input type="hidden" name="@(API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT)" value="@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT])">
 
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 Continar como <span id="#user_name">@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.USER_NAME])</span>
                             </button>
                         </form>
+
+                        <div class="log-out">
+                            <span>Para cambiar la cuenta</span>
+                            <a href="logout?next=@(Model[API.Endpoints.Oauth2.Resources.RFC6749Names.NEXT])">Haz click aquí</a>
+                        </div>
+
                     </div>
                     <div class="app-cancel-container">
                         <form class="credentials" action="error" method="post">

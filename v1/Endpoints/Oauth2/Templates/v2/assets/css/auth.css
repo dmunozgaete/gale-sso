@@ -11,7 +11,7 @@ body.auth-dialogs {
   body.auth-dialogs.authentication-page div.page-content > center {
     padding-top: 1em; }
     body.auth-dialogs.authentication-page div.page-content > center > div.app-logo-container {
-      padding: 24px 0px; }
+      padding: 14px 0px; }
       body.auth-dialogs.authentication-page div.page-content > center > div.app-logo-container.has-friendly-error {
         padding: 0px 0px 24px 0px; }
       body.auth-dialogs.authentication-page div.page-content > center > div.app-logo-container > img {
@@ -23,8 +23,8 @@ body.auth-dialogs {
       body.auth-dialogs.authentication-page div.page-content > center > div.app-disclaimer > span.app-name {
         font-weight: bold; }
     body.auth-dialogs.authentication-page div.page-content > center > form.credentials {
-      margin-top: 1.5em; }
-      body.auth-dialogs.authentication-page div.page-content > center > form.credentials > div {
+      margin-top: 1em; }
+      body.auth-dialogs.authentication-page div.page-content > center > form.credentials > div.credentials-box {
         font-size: 14px;
         line-height: 18px;
         width: 90%;
@@ -33,12 +33,12 @@ body.auth-dialogs {
         border-radius: 4px;
         overflow: hidden;
         box-shadow: 0px 2px 2px -2px #e8e8e8; }
-        body.auth-dialogs.authentication-page div.page-content > center > form.credentials > div > div {
+        body.auth-dialogs.authentication-page div.page-content > center > form.credentials > div.credentials-box > div {
           width: 100%;
           overflow: hidden; }
-          body.auth-dialogs.authentication-page div.page-content > center > form.credentials > div > div:first-child > input {
+          body.auth-dialogs.authentication-page div.page-content > center > form.credentials > div.credentials-box > div:first-child > input {
             border-bottom: 1px solid #d6d6d6; }
-          body.auth-dialogs.authentication-page div.page-content > center > form.credentials > div > div > input {
+          body.auth-dialogs.authentication-page div.page-content > center > form.credentials > div.credentials-box > div > input {
             width: inherit;
             outline: none;
             font-size: 1em;
@@ -84,11 +84,21 @@ body.auth-dialogs {
           background-color: #00BDF6; }
         body.auth-dialogs.authentication-page div.page-content > center > div.external-authenticators > div.authenticators > button:hover {
           background-color: dummy; }
-    body.auth-dialogs.authentication-page div.page-content > center > div.app-cancel-container.has-authenticators {
+    body.auth-dialogs.authentication-page div.page-content > center > div.app-cancel-container {
       position: static;
       margin-top: 2em;
       right: 0px;
       bottom: 0.5em; }
+    body.auth-dialogs.authentication-page div.page-content > center > div.sign-up > form {
+      padding-top: 10px; }
+      body.auth-dialogs.authentication-page div.page-content > center > div.sign-up > form > span {
+        opacity: 0.7; }
+      body.auth-dialogs.authentication-page div.page-content > center > div.sign-up > form > a {
+        color: #536dfe;
+        padding: 10px 3px;
+        text-decoration: none;
+        font-size: 1em;
+        box-shadow: none; }
   body.auth-dialogs.consent-page div.page-content > center {
     padding-top: 3em; }
     body.auth-dialogs.consent-page div.page-content > center > div.app-logo-container {
@@ -108,13 +118,26 @@ body.auth-dialogs {
       text-align: center;
       left: 0px;
       right: 0px;
-      bottom: 11em; }
+      bottom: 10em; }
       body.auth-dialogs.consent-page div.page-content > center > div.app-approve-container button {
         height: 3em;
         min-width: 70%;
         font-size: 1.3em;
         text-transform: none;
         font-weight: normal;
-        white-space: nowrap; }
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 96%; }
+      body.auth-dialogs.consent-page div.page-content > center > div.app-approve-container > div.log-out {
+        padding-top: 14px; }
+        body.auth-dialogs.consent-page div.page-content > center > div.app-approve-container > div.log-out > span {
+          opacity: 0.7; }
+        body.auth-dialogs.consent-page div.page-content > center > div.app-approve-container > div.log-out > a {
+          color: #536dfe;
+          padding: 10px 3px;
+          text-decoration: none;
+          font-size: 1em;
+          box-shadow: none; }
 
 /*# sourceMappingURL=auth.css.map */

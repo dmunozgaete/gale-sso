@@ -16,7 +16,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ApplicationInsightsResourceId>/subscriptions/978db6b6-558b-404c-a2b4-21638b2cb0bf/resourcegroups/Temporal-NuevaNube/providers/microsoft.insights/components/api-workermanager</ApplicationInsightsResourceId>
+    <ApplicationInsightsResourceId>/subscriptions/978db6b6-558b-404c-a2b4-21638b2cb0bf/resourcegroups/Temporal-NuevaNube/providers/microsoft.insights/components/api-sso</ApplicationInsightsResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -141,10 +141,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\RazorTemplates.1.2.0\lib\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -183,6 +179,15 @@
       <LastGenOutput>Account.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Endpoints\Accounts\Models\Delivery\Delivery.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Delivery.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Endpoints\Applications\Models\Application.dbml.layout">
       <DependentUpon>Application.dbml</DependentUpon>
     </None>
@@ -191,6 +196,9 @@
     </None>
     <None Include="Endpoints\Oauth2\Models\Registration\Account.dbml.layout">
       <DependentUpon>Account.dbml</DependentUpon>
+    </None>
+    <None Include="Endpoints\Accounts\Models\Delivery\Delivery.dbml.layout">
+      <DependentUpon>Delivery.dbml</DependentUpon>
     </None>
     <EmbeddedResource Include="Endpoints\Accounts\Resources\Accounts.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -203,6 +211,7 @@
     <EmbeddedResource Include="Endpoints\Oauth2\Templates\v2\assets\fonts\social-icons.css" />
     <EmbeddedResource Include="Endpoints\Oauth2\Templates\v2\assets\fonts\social-icons.svg" />
     <EmbeddedResource Include="Endpoints\Oauth2\Templates\v0\images\dummy-application.jpg" />
+    <EmbeddedResource Include="Endpoints\Oauth2\Templates\v2\assets\css\registration.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -217,11 +226,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Account.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Endpoints\Accounts\Models\Delivery\Delivery.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delivery.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Endpoints\Accounts\Resources\Accounts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Accounts.resx</DependentUpon>
     </Compile>
+    <Compile Include="Endpoints\Accounts\Services\Delivery\CreateAddress.cs" />
+    <Compile Include="Endpoints\Accounts\Services\Delivery\GetAccountAddresses.cs" />
     <Compile Include="Endpoints\Accounts\Services\GetEntityInformation.cs" />
     <Compile Include="Endpoints\Oauth2\Models\Registration\Account.designer.cs">
       <DependentUpon>Account.dbml</DependentUpon>
@@ -229,8 +245,11 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Endpoints\Oauth2\Resources\Authenticators.cs" />
+    <Compile Include="Endpoints\Oauth2\Resources\NewAccount.cs" />
     <Compile Include="Endpoints\Oauth2\Services\Auth\ApproveScopes.cs" />
-    <Compile Include="Endpoints\Oauth2\Services\Registration\RegisterCustomUser.cs" />
+    <Compile Include="Endpoints\Oauth2\Services\Auth\Logout.cs" />
+    <Compile Include="Endpoints\Oauth2\Services\Registration\RegisterUser.cs" />
+    <Compile Include="Endpoints\Oauth2\Services\Registration\GetUserRegisterDialog.cs" />
     <Compile Include="Endpoints\Accounts\Services\GetAccountAvatar.cs" />
     <Compile Include="Endpoints\Applications\ApplicationsController.cs" />
     <Compile Include="Endpoints\Applications\Models\Application.designer.cs">
@@ -281,9 +300,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="documentation.config" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Endpoints\Applications\Models\Application.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Application.designer.cs</LastGenOutput>
@@ -318,6 +334,7 @@
       <LastGenOutput>File.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include="Endpoints\Oauth2\Templates\v2\registration\create-account-dialog.cshtml" />
     <None Include="Properties\PublishProfiles\api-sso.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -153,12 +153,14 @@ namespace API.Endpoints.Oauth2.Services.Auth
                 }
                 else
                 {
+                    //CREATE AND SAVE THE COOKIE FOR THE USER!!
                     var user_cookie = new System.Net.Http.Headers.CookieHeaderValue(
                         RFC6749Names.COOKIE_CURRENT_USER,
                         state.user
                     );
-                    user_cookie.HttpOnly = true;
-                    user_cookie.Secure = true;
+                    user_cookie.HttpOnly = false;
+                    user_cookie.Secure = false;  //Only Work in Https
+
 
                     var cookies = new List<System.Net.Http.Headers.CookieHeaderValue>();
                     cookies.Add(user_cookie);

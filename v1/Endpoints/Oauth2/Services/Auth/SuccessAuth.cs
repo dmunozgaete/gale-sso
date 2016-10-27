@@ -76,6 +76,8 @@ namespace API.Endpoints.Oauth2.Services.Auth
                         claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.PrimarySid, account.token.ToString()));
                         claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, account.fullname));
                         claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Email, account.email));
+                        claims.Add(new System.Security.Claims.Claim("nationalId", account.nationalId));
+                        claims.Add(new System.Security.Claims.Claim("country", account.country));
                         claims.Add(new System.Security.Claims.Claim("hash", userApplication.hash));
                         claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.GroupSid, account.type_identifier));
 

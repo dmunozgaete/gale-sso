@@ -41,13 +41,29 @@ namespace API.Endpoints.Accounts.Services
                 svc.Parameters.Add("ENTI_Token", this.Model);
 
                 var repo = this.ExecuteQuery(svc);
-                var account = repo.GetModel<Models.Account>().FirstOrDefault();
+                var type = repo.GetModel<Models.EntityType>().FirstOrDefault();
+
+                //------------------------------------------------------------------------------------------------------
+                // GUARD EXCEPTIONS
+                Gale.Exception.RestException.Guard(() => type == null, "ACCOUNT_NOT_FOUND", Resources.Accounts.ResourceManager);
+                //------------------------------------------------------------------------------------------------------
+
+                object entity = null;
+                switch (type.identifier.ToUpper())
+                {
+                    case "USUA":
+                        entity = repo.GetModel<Models.Account>(1).FirstOrDefault();
+                        break;
+                    case "APPL":
+                        entity = repo.GetModel<Models.Application>(1).FirstOrDefault();
+                        break;
+                }  
 
                 //Create Response
                 var response = new HttpResponseMessage(System.Net.HttpStatusCode.OK)
                 {
                     Content = new ObjectContent<Object>(
-                        account,
+                        entity,
                         new Gale.REST.Http.Formatter.KqlFormatter()
                     )
                 };
